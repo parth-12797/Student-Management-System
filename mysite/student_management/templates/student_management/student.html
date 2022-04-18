@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+   <head>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav">
+            <a href="{% url 'base_data' %}" class="nav-item nav-link active">Home</a>
+   <a href="{% url 'student_list' %}" class="nav-item nav-link active">Student</a>
+    <a href="{% url 'faculty_list' %}" class="nav-item nav-link active">Faculties</a>
+    <a href="{% url 'campus_list' %}" class="nav-item nav-link active">Campus</a>
+    <a href="{% url 'stream_list' %}" class="nav-item nav-link active">Stream</a>
+    <a href="{% url 'lab_list' %}" class="nav-item nav-link active">Lab</a>
+    <a href="{% url 'subject_list' %}" class="nav-item nav-link active">Subjects</a>
+    <a href="{% url 'facility_list' %}" class="nav-item nav-link active">Facilities</a>
+    <a href="{% url 'course_list' %}" class="nav-item nav-link active">Course</a>
+
+
+
+        </div>
+
+    </div>
+</nav>
+
+<h1 style="text-align:center;">Student Page</h1>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+
+      <th scope="col">Student ID</th>
+      <th scope="col">Student Name</th>
+      <th scope="col">Email ID</th>
+      <th scope="col">Course Name</th>
+      <th scope="col">Subjects</th>
+      <th scope="col">Labs</th>
+      <th scope="col">Facility</th>
+      <th scope="col">Stream</th>
+
+      <th scope="col">EDIT</th>
+      <th scope="col">DELETE</th>
+    </tr>
+  </thead>
+  <tbody>
+        {% for detail in student_details %}
+
+        <tr><td>{{detail.id}}</td><td>{{detail.Student_name}}</td><td>{{detail.Student_email}}</td>
+            <td>{{detail.Course_name}}</td>
+            <td>{{detail.Subjects}}</td>
+            <td>{{detail.Labs}}</td>
+            <td>{{detail.Facility}}</td>
+            <td>{{detail.Stream}}</td>
+            <td><a href="/edit_student/{{detail.id}}">EDIT</a></td>
+            <td><a href="/delete_student/{{detail.id}}">Delete</a></td>
+        </tr>
+        {% endfor %}
+
+
+
+  </tbody>
+</table>
+
+
+
+
+
+<h2 style="text-align:center;">Student Form:{{btn_text}}</h2>
+
+
+<form method="post" action="/insert_student/{{edited_student.id}}">
+     {% csrf_token %}
+  <div class="form-group">
+    <label>Student name</label>
+    <input type="text" class="form-control col-md-3" name="Student_name" value="{{edited_student.Student_name}}">
+  </div>
+<div class="form-group">
+    <label>Student Email</label>
+    <input type="text" class="form-control col-md-3" name="Student_email" value="{{edited_student.Student_email}}">
+  </div>
+<div class="form-group">
+    <label>Course</label>
+    <input type="text" class="form-control col-md-3" name="Course_name" value="{{edited_student.Course_name}}">
+  </div>
+<div class="form-group">
+    <label>Subjects</label>
+    <input type="text" class="form-control col-md-3" name="Subjects" value="{{edited_student.Subjects}}">
+<small  class="form-text text-muted">subjects are seperated by comma(',').</small>
+</div>
+<div class="form-group">
+    <label>Labs</label>
+    <input type="text" class="form-control col-md-3" name="Labs" value="{{edited_student.Labs}}">
+    <small  class="form-text text-muted">Labs are seperated by comma(',').</small>
+  </div>
+<div class="form-group">
+    <label>Facilities</label>
+    <input type="text" class="form-control col-md-3" name="Facility" value="{{edited_student.Facility}}">
+ <small  class="form-text text-muted">Facilities are seperated by comma(',').</small>
+  </div>
+<div class="form-group">
+    <label>Stream</label>
+    <input type="text" class="form-control col-md-3" name="Stream" value="{{edited_student.Stream}}">
+  </div>
+
+
+
+
+  <button type="submit" class="btn btn-primary">{{btn_text}}</button>
+</form>
+</body>
+</html>

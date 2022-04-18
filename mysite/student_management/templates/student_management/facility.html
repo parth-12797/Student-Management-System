@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Facility</title>
+   <head>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav">
+            <a href="{% url 'base_data' %}" class="nav-item nav-link active">Home</a>
+   <a href="{% url 'student_list' %}" class="nav-item nav-link active">Student</a>
+    <a href="{% url 'faculty_list' %}" class="nav-item nav-link active">Faculties</a>
+    <a href="{% url 'campus_list' %}" class="nav-item nav-link active">Campus</a>
+    <a href="{% url 'stream_list' %}" class="nav-item nav-link active">Stream</a>
+     <a href="{% url 'lab_list' %}" class="nav-item nav-link active">Lab</a>
+    <a href="{% url 'subject_list' %}" class="nav-item nav-link active">Subjects</a>
+    <a href="{% url 'facility_list' %}" class="nav-item nav-link active">Facilities</a>
+   <a href="{% url 'course_list' %}" class="nav-item nav-link active">Course</a>
+
+
+        </div>
+
+    </div>
+</nav>
+
+<h1 style="text-align:center;">Facility Page:{{btn_text}}</h1>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+
+      <th scope="col">Facility ID</th>
+      <th scope="col">Facility Name</th>
+      <th scope="col">EDIT</th>
+      <th scope="col">DELETE</th>
+    </tr>
+  </thead>
+  <tbody>
+
+        {% for detail in facility_details %}
+
+        <tr><td>{{detail.id}}</td></td><td>{{detail.Facility_name}}</td>
+            <td><a href="/edit_facility/{{detail.id}}">EDIT</a></td>
+            <td><a href="/delete_facility/{{detail.id}}">Delete</a></td>
+        </tr>
+        {% endfor %}
+
+
+
+  </tbody>
+</table>
+
+
+
+
+
+<h2 style="text-align:center;">Facility Form:{{btn_text}}</h2>
+
+
+<form method="post" action="/insert_facility/{{edited_facility.id}}">
+     {% csrf_token %}
+  <div class="form-group">
+    <label>Facility name</label>
+    <input type="text" class="form-control col-md-3" name="Facility_name" value="{{edited_facility.Facility_name}}">
+  </div>
+
+  <button type="submit" class="btn btn-primary">{{btn_text}}</button>
+</form>
+</body>
+</html>
